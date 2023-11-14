@@ -1,0 +1,15 @@
+  # - name: Copy file
+
+  # - name: Copy file 'hosts'
+
+  # - name: add user
+
+  # - name: add user 'bob'
+
+  # - name: upgrade all apt packages
+
+  # - name: Copy file 'hosts' to '/home/dest' and set the mode to '666'
+
+  # - name: debug inventory_hostname
+
+  # - name: create users 'nate' with password 123 'kelly' with password 690 and 'freddy' with password 999

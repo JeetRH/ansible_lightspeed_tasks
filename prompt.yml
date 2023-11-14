@@ -1,0 +1,48 @@
+---
+- name: ansible tasks
+  hosts: localhost
+  become: true
+
+  tasks:
+  
+  - name: install apache server
+    community.general.apk:
+      name: apache2
+      state: latest
+    register: output
+
+
+
+
+  
+
+
+  # - name: upgrade all apt packages
+
+  # - name: Copy file 'hosts' to '/home/dest' and set the mode to '666'
+
+  - name: debug inventory_hostname
+
+  
+  
+  
+  
+
+  - name: create users 'nate' with password 123 'kelly' with password 690 and 'freddy' with password 999
+    ansible.builtin.user:
+      name: "{{ item }}"
+      password: "{{ output }}"
+      update_password: "{{ _update_password_ }}"
+      comment: "{{ item }}"
+      generate_ssh_key: true
+      ssh_key_file: .ssh/id_rsa
+    loop:
+      - nate
+      - benjamin
+      - larry
+  
+  
+
+  
+  
+  

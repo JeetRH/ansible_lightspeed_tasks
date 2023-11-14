@@ -1,0 +1,11 @@
+---
+- name: Add tasks to playbooks
+  hosts: poc_hosts
+  become: true
+
+  tasks:
+  - name: create a file with content “poc1 text” in a file named poc1.txt
+    ansible.builtin.copy:
+      dest: /opt/poc1.txt
+      content: poc1 text
+  

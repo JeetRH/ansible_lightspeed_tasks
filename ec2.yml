@@ -1,0 +1,33 @@
+---
+- name: AWS EC2 VM
+  hosts: poc_hosts
+  become: true
+
+  tasks:
+  - name: Provision an AWS EC2 VM
+    amazon.aws.ec2_instance:
+      access_key: "{{ access_key }}"
+      secret_key: "{{ aws_secret_key }}"
+      key_name: "{{ ssh_key_name }}"
+      instance_type: "{{ aws_instance_type }}"
+      image_id: "{{ aws_image_id }}"
+      region: "{{ aws_region }}"
+      vpc_subnet_id: "{{ aws_vpc }}"
+      security_group: "{{ aws_security_group }}"
+      cpu_options:
+        core_count: 2
+        threads_per_core: 2
+      network:
+        assign_public_ip: true
+      tags:
+        tag1: poc
+        tag2: ansible
+      name: ansible-poc-aws
+      state: present
+  
+  - name: take snapshot of ec2 instance
+    amazon.aws.ec2_snapshot:
+      volume_id: "{{ aws_volume_id }}"
+      region: "{{ aws_region }}"
+      description: ansible-poc-snapshot
+  
