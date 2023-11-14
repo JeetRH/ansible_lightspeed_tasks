@@ -4,4 +4,38 @@
   become: true
 
   tasks:
+  - name: Install apache server # specify which server to install
+    ansible.builtin.package:
+      name: httpd
+      state: present
+  
+  - name: enable apache service
+    ansible.builtin.service:
+      name: httpd
+      state: started
+      enabled: true
+  
+  - name: Creating a file with the required content
+    copy:
+      dest: "/home/PoC1/web.html"
+      content: |
+        {{ inventory_hostname }}
+        {{ ansible_default_ipv4.address }}
+
+  - name: copy index.html
+    ansible.builtin.copy:
+      src: /home/PoC1/web.html
+      dest: /var/www/html/index.html
+      force: true
+      mode: '0644'
+
+  # - name: copy index.html
+  #   ansible.builtin.copy:
+  #     content: "{{ inventory_hostname }}"
+  #     dest: /var/www/html/index.html
+  #     force: true
+  #     mode: '0644'
+  
+    
+  
   

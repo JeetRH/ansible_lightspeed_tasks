@@ -1,0 +1,39 @@
+---
+- name: Add tasks to playbooks
+  hosts: poc_hosts
+  become: true
+
+  tasks:
+  # - name: get memory of host machine
+
+  - name: provision a vm
+    community.vmware.vmware_guest:
+      name: ansible-poc-vm
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      validate_certs: false
+      datacenter: "{{ vcenter_datacenter }}"
+      cluster: "{{ vcenter_cluster }}"
+      template: "{{ vcenter_template }}"
+      folder: "{{ vcenter_folder }}"
+      hardware:
+        memory_mb: "{{ ansible_memtotal_mb }}" # is this how to find the memory of current host?
+      disk:
+      - size_gb: 10 # maybe add one point to create a disk of 10 gb?
+      state: poweredon # maybe add another point to set machine to powerdon state
+
+  - name: take a snapshot of provisioned vm
+    community.vmware.vmware_guest_snapshot:
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      datacenter: "{{ vcenter_datacenter }}"
+      folder: "/{{ vcenter_folder }}/vm/" # destination of the snapshot? In another folder or same folder?
+      name: ansible-poc-vm 
+      state: present
+      snapshot_name: ansible-poc-snapshot # name of snapshot?
+      description: a snapshot of provisioned vm
+    delegate_to: localhost
+  
+  

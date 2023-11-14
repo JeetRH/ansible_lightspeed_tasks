@@ -23,10 +23,12 @@ As the main index page, the contents should be the inventory hostname of this se
 
 1. Provision a vCenter VM
 Write a playbook to provision a VM with the following details (where indicated, simply use the variable name and not a real value):
+
 name: ansible-poc-vm
 vcenter hostname: {{ vcenter_hostname }}
 vcenter username: {{ vcenter_username }}
 vcenter password: {{ vcenter_password }}
+do not validate certs
 datacenter: {{ vcenter_datacenter }}
 cluster: {{ vcenter_cluster }}
 template to clone from: {{ vcenter_template }}
