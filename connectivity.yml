@@ -1,0 +1,14 @@
+---
+- name: Add tasks to playbooks
+  hosts: poc_hosts
+  become: true
+
+  tasks:
+  - name: Test connectivity using ping module
+    ansible.builtin.ping:
+    register: output
+
+  - name: Debug the connectivity test return
+    ansible.builtin.debug:
+      msg: "{{ output }}"
+  

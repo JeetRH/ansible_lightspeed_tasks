@@ -1,0 +1,31 @@
+---
+- name: Add tasks to playbooks
+  hosts: localhost
+  become: true
+
+  tasks:
+  # Write a task to setup apache server
+  - name: create two directories in your user’s home directory named “PoC1” and “PoC2”
+    ansible.builtin.file:
+      path: "{{ item }}"
+      state: directory
+      owner: devops
+      group: devops
+      mode: '0775'
+      name: “poc1”
+    loop:
+      - /Users/ano-user/POC1
+      - /Users/ano-user/POC2/POC1
+  
+  - name: gather system information about the target host
+    
+
+
+
+
+
+
+
+
+
+

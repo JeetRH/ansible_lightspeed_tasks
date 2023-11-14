@@ -1,0 +1,17 @@
+---
+- name: Add tasks to playbooks
+  hosts: poc_hosts
+  become: true
+
+  tasks:
+  - name: create directory if they don't exist
+    ansible.builtin.file:
+      path: "{{ item }}"
+      state: directory
+      owner: root # give mode, owner and group info
+      group: root
+      mode: '0775'
+    loop:
+      - /home/PoC1 #might need to give these paths
+      - /home/PoC2
+  

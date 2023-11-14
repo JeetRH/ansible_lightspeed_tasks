@@ -1,0 +1,7 @@
+---
+- name: Add tasks to playbooks
+  hosts: poc_hosts
+  become: true
+
+  tasks:
+  

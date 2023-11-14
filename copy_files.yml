@@ -1,0 +1,15 @@
+---
+- name: Add tasks to playbooks
+  hosts: poc_hosts
+  become: true
+
+  tasks:
+  - name: copy files from PoC1 to PoC3
+  copy:
+    src: /home/PoC1/    # note the '/'
+    dest: /home/PoC3/ # do we need to create PoC3 directory first?
+
+  - name: copy files from PoC2 to PoC3
+  copy:
+    src: /home/PoC2/    # note the '/'
+    dest: /home/PoC3/ # do we need to create PoC3 directory first?

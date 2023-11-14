@@ -1,0 +1,26 @@
+---
+- name: Add tasks to playbooks
+  hosts: poc_hosts
+  become: true
+
+  tasks:
+  - name: gather system information
+    ansible.builtin.setup:
+    register: system_info
+  
+  - name: save register in json format
+    ansible.builtin.copy:
+      content: "{{ system_info | ansible.builtin.to_json }}"
+      dest: /home/PoC1/system_facts.json
+
+  - name: save register in yaml format
+    ansible.builtin.copy:
+      content: "{{ system_info | ansible.builtin.to_yaml }}"
+      dest: /home/PoC1/system_facts.yaml
+
+
+
+
+
+
+  
