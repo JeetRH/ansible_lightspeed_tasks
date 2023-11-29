@@ -1,22 +1,31 @@
 ---
-- name: Add tasks to playbooks
-  hosts: poc_hosts
-  become: true
+- name: Gather system information and save in different formats
+  hosts: localhost
+  connection: local
 
   tasks:
-  - name: gather system information
-    ansible.builtin.setup:
-    register: system_info
-  
-  - name: save register in json format
-    ansible.builtin.copy:
-      content: "{{ system_info | ansible.builtin.to_json }}"
-      dest: /home/PoC1/system_facts.json
+    # gather system information about the target host & save the information to 'system_facts.json' in the directory 'PoC1' & save information to 'system_facts.yml' in the directory 'PoC2'
+    - name: Gather system information about the target host
+      ansible.builtin.setup:
+      delegate_to: "{{ inventory_hostname }}"
+      delegate_facts: true
+      run_once: true
+      register: system_info
 
-  - name: save register in yaml format
-    ansible.builtin.copy:
-      content: "{{ system_info | ansible.builtin.to_yaml }}"
-      dest: /home/PoC1/system_facts.yaml
+    - name: Save the information to 'system_facts.json' in the directory 'PoC1'
+      ansible.builtin.copy:
+        content: "{{ system_info | to_nice_json }}"
+        dest: /home/ubuntu/PoC1/system_facts.json
+        mode: '0644'
+
+    - name: Save information to 'system_facts.yml' in the directory 'PoC2'
+      ansible.builtin.copy:
+        content: "{{ system_info | to_nice_yaml }}"
+        dest: /home/ubuntu/PoC2/system_facts.yml
+        mode: '0644'
+    
+    
+
 
 
 

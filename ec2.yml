@@ -4,6 +4,25 @@
   become: true
 
   tasks:
+  - name: provision aws instance
+    amazon.aws.ec2_instance:
+      region: us-east-2
+      key_name: "{{ _key_name_ }}"
+      instance_type: t2.micro
+      image_id: ami-05fa00d4c63e32376
+      wait: true
+      count: 1
+      vpc_subnet_id: subnet-0a59730f37c77bc4f
+      security_group: elk_security_group
+      network:
+        assign_public_ip: true
+      tags:
+        Environment: Dev
+        Attempt: MyAttempting
+        Role: RDS
+        Site: "{{ site }}"
+    register: ec2
+  
   - name: Provision an AWS EC2 VM
     amazon.aws.ec2_instance:
       access_key: "{{ access_key }}"

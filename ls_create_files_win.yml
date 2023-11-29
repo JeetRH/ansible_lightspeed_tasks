@@ -1,0 +1,12 @@
+---
+- name: Tasks for windows server
+  hosts: poc_hosts
+  become: true
+
+  tasks:
+    # create a file poc1.txt with text “poc1 text”
+    - name: Create a file poc1.txt with text “poc1 text”
+      ansible.windows.win_copy:
+        content: poc1 text
+        dest: C:\poc1.txt
+    

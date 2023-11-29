@@ -1,0 +1,8 @@
+---
+- name: Add tasks to playbooks
+  hosts: localhost
+  become: true
+
+  tasks:
+  - name: provision vmware server
+  

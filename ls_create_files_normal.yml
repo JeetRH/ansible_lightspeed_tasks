@@ -1,0 +1,12 @@
+---
+- name: Ansible tasks
+  hosts: localhost
+  connection: local
+
+  tasks:
+    # create a file poc1.txt with text “poc1 text”
+    - name: Create a file poc1.txt with text “poc1 text”
+      ansible.builtin.copy:
+        content: poc1 text
+        dest: poc1.txt
+    
